@@ -1,0 +1,46 @@
+<div class="Result">
+  <div class="Result1">
+    <table style="text-align: center;">
+      <tr>
+        <th>Wynik [pt]</th>
+        <th>Bieżacy cel</th>
+        <th>Cel zmianowy</th>
+      </tr>
+      <tr>
+        <td><div class="ResultScore">{{SCORE}}</div></td>
+        <td><div class="ResultScore">{{ent_ProcessTimeTargetCurrent}}</div></td>
+        <td><div class="ResultScore">{{ent_ProcessTimeTarget}}</div></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="Result2">
+    <table style="text-align: center;">
+      <tr>
+        <th>Wynik [pt]</th>
+        <th>Bieżacy cel</th>
+        <th>Cel zmianowy</th>
+      </tr>
+      <tr>
+        <td><div class="ResultScore">{{SCORE2}}</div></td>
+        <td><div class="ResultScore">{{ent_ProcessTimeTargetCurrent2}}</div></td>
+        <td><div class="ResultScore">{{ent_ProcessTimeTarget2}}</div></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+<p>.</p>
+<div style="display:block; clear:both;">
+  <div class="Main1_2">
+    <div class="center"><div [ngClass]="ScoreCss" >{{SCORE}}</div></div>
+    <div class="center"><p class="WcName">{{ent_Description_pl}}</p></div>
+  </div>
+
+  <div class="Main2_2">
+    <div class="center"><div [ngClass]="ScoreCss2" >{{SCORE2}}</div></div>
+    <div class="center"><p class="WcName">{{ent_Description_pl2}}</p></div>
+  </div>
+</div>
+<div class="center"><p class="clock">{{now}}</p></div>
+<img src="../assets/img/bscc logo white2.png" class="logo">

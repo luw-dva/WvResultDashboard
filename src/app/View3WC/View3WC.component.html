@@ -1,0 +1,96 @@
+<div class="Result">
+  <div class="Result1">
+    <table style="text-align: center;">
+      <tr>
+        <th>Wynik [pt]</th>
+        <th>Bieżacy cel</th>
+        <th>Cel zmianowy</th>
+      </tr>
+      <tr>
+        <td><div class="ResultScore">{{SCORE}}</div></td>
+        <td><div class="ResultScore">{{ent_ProcessTimeTargetCurrent}}</div></td>
+        <td><div class="ResultScore">{{ent_ProcessTimeTarget}}</div></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="center"><p class="clock">{{now}}</p></div>
+<div class="Main3">
+  <div [ngSwitch]="layout">
+    <div *ngSwitchCase = 1>
+      <table class='tableCss'>
+        <tr>
+          <th>Cel bieżący</th>
+          <th>Wynik</th>
+        </tr>
+        <tr style="text-align: center; font-size: 300px; ">
+          <td>{{this.workstationData[0][5]}}</td>
+          <td [ngClass]="workstationData[0][6]">{{workstationData[0][0]}}</td>
+        </tr>
+        <tr style="text-align: center; font-size: 150px; color:black">
+        <td colspan="2">{{workstationData[0][2]}}</td>
+        </tr>
+      </table>
+    </div>
+
+  <div *ngSwitchCase=2>
+    <div class="leftDiv" style="margin-right: 5%;">
+      <table class='tableCss'>
+        <tr>
+          <th>Cel bieżący</th>
+          <th>Wynik</th>
+        </tr>
+        <tr style="text-align: center; font-size: 200px; ">
+          <td>{{this.workstationData[0][5]}}</td>
+          <td [ngClass]="workstationData[0][6]">{{workstationData[0][0]}}</td>
+        </tr>
+        <tr style="text-align: center; font-size: 150px; color:black">
+        <td colspan="2">{{workstationData[0][2]}}</td>
+        </tr>
+      </table>
+  </div>
+
+  <div class="leftDiv">
+    <table class='tableCss'>
+      <tr>
+        <th>Cel bieżący</th>
+        <th>Wynik</th>
+      </tr>
+      <tr style="text-align: center; font-size: 200px; ">
+        <td>{{this.workstationData[1][5]}}</td>
+        <td [ngClass]="workstationData[1][6]">{{workstationData[1][0]}}</td>
+      </tr>
+      <tr style="text-align: center; font-size: 150px; color:black">
+      <td colspan="2">{{workstationData[1][2]}}</td>
+      </tr>
+    </table>
+  </div>
+  </div>
+
+  <div *ngSwitchCase=3>
+  <div class="leftDiv" style="margin-right: 5%;">
+    <table class='tableCss'>
+      <tr><th>Stanowisko</th><th>Cel bieżący</th><th>Wynik</th></tr>
+      <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1); let index = index">
+        <tr style="text-align: center;" [style.font-size]="fontsizeCSS+'px'" *ngIf="index%2==0">
+          <td >{{workstationData[index][2]}}</td><td>{{this.workstationData[index][5]}} </td><td [ngClass]="workstationData[index][6]">{{workstationData[index][0]}}</td>
+        </tr>
+      </ng-container>
+    </table>
+</div>
+
+<div class="leftDiv">
+  <table class='tableCss'>
+    <tr><th>Stanowisko</th><th>Cel bieżący</th><th>Wynik</th></tr>
+    <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1); let index = index">
+      <tr style="text-align: center;" [style.font-size]="fontsizeCSS+'px'" *ngIf="index%2==1">
+        <td >{{workstationData[index][2]}}</td><td>{{this.workstationData[index][5]}} </td><td [ngClass]="workstationData[index][6]">{{workstationData[index][0]}}</td>
+      </tr>
+    </ng-container>
+  </table>
+</div>
+</div>
+</div>
+</div>
+
+<img src="../assets/img/bscc logo white2.png" class="logo2">

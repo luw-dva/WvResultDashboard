@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+ body{
+  background-image: url(assets/img/SAP_BG.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  font-family: 'Lato', sans-serif;
+  src: url(assets/fonts/Lato-Light.ttf) format("opentype");
+  padding-top: 30px;
+}
+html {
+  font-family: 'Lato', sans-serif;
+  src: url(assets/fonts/Lato-Light.ttf) format("opentype");
+  height: 100%
+}
+
+@font-face {
+  font-family: lato;
+  src: url(assets/fonts/Lato-Light.ttf) format("opentype");
+}
+
