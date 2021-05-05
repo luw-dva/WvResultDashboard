@@ -8,16 +8,20 @@ import { AppComponent } from './app.component';
 import { View1WCComponent } from './View1WC/View1WC.component';
 import { View2WCComponent } from './View2WC/View2WC.component';
 import { View3WCComponent } from './View3WC/View3WC.component';
+import { FactoryView1WCComponent } from './FactoryView1WC/FactoryView1WC.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
       View1WCComponent,
       View2WCComponent,
-      View3WCComponent
+      View3WCComponent,
+      FactoryView1WCComponent
    ],
   imports: [
     BrowserModule,
+    NgxChartsModule,
     AppRoutingModule
   ],
   providers: [ServiceService, DataService],

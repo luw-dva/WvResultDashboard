@@ -68,16 +68,16 @@
   </div>
 
   <div *ngSwitchCase=3>
-  <div class="leftDiv" style="margin-right: 5%;">
-    <table class='tableCss'>
-      <tr><th>Stanowisko</th><th>Cel bieżący</th><th>Wynik</th></tr>
-      <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1); let index = index">
-        <tr style="text-align: center;" [style.font-size]="fontsizeCSS+'px'" *ngIf="index%2==0">
-          <td >{{workstationData[index][2]}}</td><td>{{this.workstationData[index][5]}} </td><td [ngClass]="workstationData[index][6]">{{workstationData[index][0]}}</td>
-        </tr>
-      </ng-container>
-    </table>
-</div>
+    <div class="leftDiv" style="margin-right: 5%;">
+      <table class='tableCss'>
+        <tr><th>Stanowisko</th><th>Cel bieżący</th><th>Wynik</th></tr>
+        <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1); let index = index">
+          <tr style="text-align: center;" [style.font-size]="fontsizeCSS+'px'" *ngIf="index%2==0">
+            <td >{{workstationData[index][2]}}</td><td>{{this.workstationData[index][5]}} </td><td [ngClass]="workstationData[index][6]">{{workstationData[index][0]}}</td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
 
 <div class="leftDiv">
   <table class='tableCss'>
@@ -91,6 +91,10 @@
 </div>
 </div>
 </div>
+</div>
+
+<div style="width: 100%; text-align: center;">
+  <p class="wcName">{{this.ent_Description_pl}}</p>
 </div>
 
 <img src="../assets/img/bscc logo white2.png" class="logo2">

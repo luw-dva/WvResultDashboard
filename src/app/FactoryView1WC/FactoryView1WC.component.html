@@ -1,0 +1,47 @@
+<div class="Result">
+  <div class="Result1">
+    <table  >
+      <tr>
+        <th>Wynik [PT]</th>
+        <th>Bieżacy cel</th>
+        <th>Cel zmianowy</th>
+        <th>Charts</th>
+      </tr>
+      <tr>
+        <td class="ResultTab"><div class="ResultScore">{{SCORE}}</div></td>
+        <td class="ResultTab"><div class="ResultScore">{{FactoryCurrentTarget}}</div></td>
+        <td class="ResultTab"><div class="ResultScore">{{FactoryTarget}}</div></td>
+        <td>
+          <ngx-charts-bar-horizontal
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          [xAxis]="showXAxis"
+          [legend]=false
+     >
+        </ngx-charts-bar-horizontal>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div id="Main">
+    <table class='tableCss'>
+      <tr>
+        <th>Name</th>
+        <th>Target</th>
+        <th>Results</th>
+      </tr>
+      <ng-container *ngFor="let a of Arr(15).fill(1); let index = index" >
+      <tr >
+        <td style="font-size: 32px;">{{Results[index][1]}}</td>
+        <td rowspan="2" style="font-size: 52px;">{{Results[index][2]}}</td>
+        <td rowspan="2" style="font-size: 52px;">{{Results[index][3]}}</td>
+      </tr>
+        <tr><td>{{Results[index][0]}}</td></tr>
+      </ng-container>
+    </table>
+</div>
+<div class="center"><p class="clock">{{now}}</p></div>
+<img src="../assets/img/bscc logo white2.png" class="logo2">

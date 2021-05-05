@@ -11,9 +11,11 @@
   margin-left: 5%;
   float:left;
 }
+
 th{
   font-size: 24px;
 }
+
 .ResultScore{
   font-size: 92px;
   padding: 5px;
@@ -41,7 +43,6 @@ th{
   width: 90%;
   display: block;
   padding: 10px;
-
 }
 
 .center{

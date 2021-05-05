@@ -6,9 +6,9 @@
   position: absolute;
   right: 80px;
   top: 0px;
-  width: 375px;
+  width: 350px;
   z-index: -1;
-  filter: brightness(85%);
+  filter: brightness(95%);
 }
 
 .Result1{
@@ -69,9 +69,18 @@ th{
 .clock{
   font-size: 96px;
   color: white;
-  margin-top: 5px;
+  margin-top: 1px;
   padding-right: 20%;
   float: none;
+margin-bottom: 50px;
+}
+
+.wcName{
+  font-size: 96px;
+  color: black;
+  margin-top: 1px;
+  float: none;
+  margin-bottom: 50px;
 }
 
 .ScorePTnok{
