@@ -4,7 +4,7 @@ export var single = [
     "value": 1200
   },
   {
-    "name": "USA",
+    "name": "Result",
     "value": 750
   },
 ];

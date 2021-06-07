@@ -1,3 +1,4 @@
+import { dict } from './../../dictionary';
 import { Component, OnInit } from '@angular/core';
 import { ServiceMethod } from './../../service.method';
 import { ServiceService } from './../../service.service';
@@ -33,7 +34,6 @@ export class View3WCComponent implements OnInit {
   public WS_id: string ;
   mode: string = 'X';
   numberOfEntities: number = 0;
-
   fontsizeCSS;
   j: number = 0;
 
@@ -43,15 +43,35 @@ export class View3WCComponent implements OnInit {
     }, 1);
   }
 
+  Langu: string = 'PL';
+  lang = 0;
+  dict_result: string ;
+  dict_current_target: string ;
+  dict_shift_target: string ;
+  dict_station: string ;
+
+
+  dictionaryChangeLanguage() {
+    this.dict_result = dict.get('Wynik')[this.lang];
+    this.dict_current_target = dict.get('Cel_biezacy')[this.lang];
+    this.dict_shift_target = dict.get('Cel_zmianowy')[this.lang];
+    this.dict_station = dict.get('Stanowisko')[this.lang];
+  }
+
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.WC_id = params['Workcenter'];
+      this.Langu = params['Language'];
+      if (this.Langu == 'EN') this.lang = 1;
     });
 
      this.interval = setInterval(() => {this.checkUpdate();}, 60000);
-     this.interval2 = setInterval(() => {this.targetCount(); this.targetCount2}, 5000);
+     this.interval2 = setInterval(() => {this.targetCount(); this.targetCount2}, 30000);
 
-    setTimeout(() => this.serviceMethod.getEntAttr(parseInt(this.WC_id,)), 1000);
+    setTimeout(() => {
+      this.dictionaryChangeLanguage();
+      this.serviceMethod.getEntAttr(parseInt(this.WC_id))}, 1000);
+
     setTimeout(() => this.serviceMethod.getWcResult(this.WC_id), 3000);
 
     this.sub = this.serviceServiceLog.getResult().subscribe((data) => {
@@ -165,11 +185,11 @@ export class View3WCComponent implements OnInit {
         }
 
       if(xhours >= 22){
-        this.workstationData[i][5]  = Math.floor(parseInt(this.workstationData[i][4])*(((xhours*60 + time.getMinutes()) - 1320)/480));
+        this.workstationData[i][5]  = Math.floor(parseInt(this.workstationData[i][4])*(((xhours*60 + time.getMinutes() + 120) - 1320)/480));
         }
 
       if(xhours < 6){
-        this.workstationData[i][5]  = Math.floor(parseInt(this.workstationData[i][4])*(((xhours*60 + time.getMinutes()) )/480));
+        this.workstationData[i][5]  = Math.floor(parseInt(this.workstationData[i][4])*(((xhours*60 + time.getMinutes()) + 120)/480));
         }
 
       if(this.workstationData[i][0] > this.workstationData[i][5]){
@@ -191,11 +211,11 @@ export class View3WCComponent implements OnInit {
       }
 
     if(xhours >= 22){
-      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 1320)/480));
+      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes() +120) - 1320)/480));
       }
 
     if(xhours < 6){
-      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) )/480));
+      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes() + 120) )/480));
       }
 
     if(this.SCORE > this.ent_ProcessTimeTargetCurrent){

@@ -2,9 +2,9 @@
   <div class="Result1">
     <table style="text-align: center;">
       <tr>
-        <th>Wynik [pt]</th>
-        <th>Bieżacy cel</th>
-        <th>Cel zmianowy</th>
+        <th>{{dict_result}} [pt]</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_shift_target}}</th>
       </tr>
       <tr>
         <td><div class="ResultScore">{{SCORE}}</div></td>
@@ -20,8 +20,8 @@
     <div *ngSwitchCase = 1>
       <table class='tableCss'>
         <tr>
-          <th>Cel bieżący</th>
-          <th>Wynik</th>
+          <th>{{dict_current_target}}</th>
+          <th>{{dict_result}}</th>
         </tr>
         <tr style="text-align: center; font-size: 300px; ">
           <td>{{this.workstationData[0][5]}}</td>
@@ -37,8 +37,8 @@
     <div class="leftDiv" style="margin-right: 5%;">
       <table class='tableCss'>
         <tr>
-          <th>Cel bieżący</th>
-          <th>Wynik</th>
+          <th>{{dict_current_target}}</th>
+          <th>{{dict_result}}</th>
         </tr>
         <tr style="text-align: center; font-size: 200px; ">
           <td>{{this.workstationData[0][5]}}</td>
@@ -53,8 +53,8 @@
   <div class="leftDiv">
     <table class='tableCss'>
       <tr>
-        <th>Cel bieżący</th>
-        <th>Wynik</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_result}}</th>
       </tr>
       <tr style="text-align: center; font-size: 200px; ">
         <td>{{this.workstationData[1][5]}}</td>
@@ -70,7 +70,7 @@
   <div *ngSwitchCase=3>
     <div class="leftDiv" style="margin-right: 5%;">
       <table class='tableCss'>
-        <tr><th>Stanowisko</th><th>Cel bieżący</th><th>Wynik</th></tr>
+        <tr><th>{{dict_station}}</th><th>{{dict_current_target}}</th><th>{{dict_result}}</th></tr>
         <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1); let index = index">
           <tr style="text-align: center;" [style.font-size]="fontsizeCSS+'px'" *ngIf="index%2==0">
             <td >{{workstationData[index][2]}}</td><td>{{this.workstationData[index][5]}} </td><td [ngClass]="workstationData[index][6]">{{workstationData[index][0]}}</td>
@@ -81,7 +81,7 @@
 
 <div class="leftDiv">
   <table class='tableCss'>
-    <tr><th>Stanowisko</th><th>Cel bieżący</th><th>Wynik</th></tr>
+    <tr><th>{{dict_station}}</th><th>{{dict_current_target}}</th><th>{{dict_result}}</th></tr>
     <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1); let index = index">
       <tr style="text-align: center;" [style.font-size]="fontsizeCSS+'px'" *ngIf="index%2==1">
         <td >{{workstationData[index][2]}}</td><td>{{this.workstationData[index][5]}} </td><td [ngClass]="workstationData[index][6]">{{workstationData[index][0]}}</td>

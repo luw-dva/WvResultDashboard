@@ -2,14 +2,14 @@
   <div class="Result1">
     <table style="text-align: center;">
       <tr>
-        <th>Wynik [{{dataType}}]</th>
-        <th>Bieżacy cel</th>
-        <th>Cel zmianowy</th>
+        <th>{{dict_result}} [{{dataType}}]</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_shift_target}}</th>
       </tr>
       <tr>
         <td><div class="ResultScore">{{SCORE}}</div></td>
-        <td><div class="ResultScore">{{ent_ProcessTimeTargetCurrent}}</div></td>
-        <td><div class="ResultScore">{{ent_ProcessTimeTarget}}</div></td>
+        <td><div class="ResultScore" *ngIf="dataType === 'PT'">{{ent_ProcessTimeTargetCurrent}}</div><div class="ResultScore" *ngIf="dataType == 'QTY'">{{ent_ProcessQtyTargetCurrent}}</div></td>
+        <td><div class="ResultScore" *ngIf="dataType === 'PT'">{{ent_ProcessTimeTarget}}</div><div class="ResultScore" *ngIf="dataType == 'QTY'" >{{ent_ProcessQtyTarget}}</div></td>
       </tr>
     </table>
   </div>
@@ -17,7 +17,10 @@
 <p>.</p>
 <div class="Main1">
   <div class="center"><div [ngClass]="ScoreCss" >{{SCORE}}</div></div>
-  <div class="center"><p class="WcName">{{ent_Description_pl}}</p></div>
+  <div class="center" *ngIf="lang == 0"><p class="WcName">{{ent_Description_pl}}</p></div>
+  <div class="center" *ngIf="lang == 1"><p class="WcName">{{ent_Description_en}}</p></div>
 </div>
-<div class="center"><p class="clock">{{now}}</p></div>
+<div class="center">
+    <p class="clock">{{now}}</p>
+</div>
 <img src="../assets/img/bscc logo white2.png" class="logo">

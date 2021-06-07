@@ -10,6 +10,7 @@ import { View2WCComponent } from './View2WC/View2WC.component';
 import { View3WCComponent } from './View3WC/View3WC.component';
 import { FactoryView1WCComponent } from './FactoryView1WC/FactoryView1WC.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
    ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     NgxChartsModule,
     AppRoutingModule
   ],

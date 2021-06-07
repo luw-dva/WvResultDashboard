@@ -14,6 +14,8 @@ export class ServiceService {
     'http://dkvdc-wmes0001/MESServices/UserServices.asmx?WSDL';
   private WSDLqs =
     'http://dkvdc-wmes0001/MESServices/QualityLockServices.asmx?WSDL';
+  private WSDLsr =
+    'http://dkvdc-wmes0001/MESServices/ReportsServices.asmx?WSDL';
 
   private responseSOAP: any;
   private result = new Subject<string>();
@@ -36,8 +38,13 @@ export class ServiceService {
     this.soapStructure(operation, parameters, this.WSDLqs, i);
   }
 
+  soapSrCall(operation: string, parameters: string, i?: number): void {
+    this.soapStructure(operation, parameters, this.WSDLsr, i);
+  }
+
   soapStructure(operation: string, parameters: string, WSDL: string, i?: number){
     this.responseSOAP = '';
+
     const xmlhttp = new XMLHttpRequest();
     const sr =
       `<?xml version="1.0" encoding="utf-8"?>
@@ -64,7 +71,7 @@ export class ServiceService {
           }
 
           if (i != undefined){this.operation = operation + i;}else{this.operation = operation }
-          console.log(this.responseSOAP);
+       //   console.log(this.responseSOAP);
           this.result.next(this.responseSOAP);
           this.responseSOAP = '';
         }

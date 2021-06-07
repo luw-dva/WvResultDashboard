@@ -1,3 +1,4 @@
+import { dict } from './../../dictionary';
 import { Component, OnInit } from '@angular/core';
 import { ServiceMethod } from './../../service.method';
 import { ServiceService } from './../../service.service';
@@ -47,12 +48,27 @@ export class View2WCComponent implements OnInit {
     }, 1);
   }
 
+  Langu: string = 'PL';
+  lang = 0;
+  dict_result: string ;
+  dict_current_target: string ;
+  dict_shift_target: string ;
+
+
+  dictionaryChangeLanguage() {
+    this.dict_result = dict.get('Wynik')[this.lang];
+    this.dict_current_target = dict.get('Cel_biezacy')[this.lang];
+    this.dict_shift_target = dict.get('Cel_zmianowy')[this.lang];
+  }
+
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.WC_id = params['Workcenter'];
       this.WC_id2 = params['Workcenter2'];
       this.WS_id = params['Workstation'];
       this.WS_id2 = params['Workstation2'];
+      this.Langu = params['Language'];
+      if (this.Langu == 'EN') this.lang = 1;
       if (this.WS_id != undefined){
         this.mode = 'WS'
       }else{
@@ -66,9 +82,10 @@ export class View2WCComponent implements OnInit {
 
     this.interval2 = setInterval(() => {
       this.targetCount();
-    }, 5000);
+    }, 30000);
 
     setTimeout(() => {
+      this.dictionaryChangeLanguage();
     if(this.mode == 'WC'){
       this.serviceMethod.getEntAttr(parseInt(this.WC_id), 1)
       this.serviceMethod.getEntAttr(parseInt(this.WC_id2), 2)

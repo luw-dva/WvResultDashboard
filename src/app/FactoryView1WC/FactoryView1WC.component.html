@@ -2,44 +2,62 @@
   <div class="Result1">
     <table  >
       <tr>
-        <th>Wynik [PT]</th>
-        <th>Bieżacy cel</th>
-        <th>Cel zmianowy</th>
-        <th>Charts</th>
+        <th>{{dict_result}} [PT]</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_shift_target}}</th>
       </tr>
+      <table  >  </table>
       <tr>
         <td class="ResultTab"><div class="ResultScore">{{SCORE}}</div></td>
-        <td class="ResultTab"><div class="ResultScore">{{FactoryCurrentTarget}}</div></td>
-        <td class="ResultTab"><div class="ResultScore">{{FactoryTarget}}</div></td>
-        <td>
-          <ngx-charts-bar-horizontal
-          [view]="view"
-          [scheme]="colorScheme"
-          [results]="single"
-          [xAxis]="showXAxis"
-          [legend]=false
-     >
-        </ngx-charts-bar-horizontal>
-
-        </td>
+        <td class="ResultTab"><div class="ResultScore">{{ent_ProcessTimeTargetCurrent}}</div></td>
+        <td class="ResultTab"><div class="ResultScore">{{ent_ProcessTimeTarget}}</div></td>
       </tr>
     </table>
   </div>
 </div>
+<div class="Result"><div  class="legend" [ngStyle]="{'background-color': color1}">{{dict_result}} [PT]</div>
+<div  class="legend" [ngStyle]="{'background-color': color2}">{{dict_current_target}}</div>
+<div  class="legend"[ngStyle]="{'background-color': color3}">{{dict_shift_target}}</div></div>
+
 <div id="Main">
     <table class='tableCss'>
+      <tr class='bottomLine'>
+        <th>{{dict_wc}}</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_result}} [PT]</th>
+        <th>{{dict_chart}}</th>
+      </tr>
+      <ng-container *ngFor="let a of Arr(numberOfEntities).fill(1) ; let index = index" >
       <tr>
-        <th>Name</th>
-        <th>Target</th>
-        <th>Results</th>
+        <td style="font-size: 32px;">{{Results[index][3]}}</td>
+        <td style="font-size: 52px;">{{Results[index][6]}}</td>
+        <td style="font-size: 52px;" [ngClass]="Results[index][8]">{{Results[index][0]}}</td>
+        <td>
+          <ngx-charts-bar-horizontal
+          [view]="view"
+          [xAxis] = false
+          [xScaleMax] = Results[index][6]
+          [barPadding]= 2
+          [scheme]="colorScheme"
+          [showDataLabel] = true
+          [legend]=false
+          [results]= '[
+          {
+            "name": dict_result,
+            "value": Results[index][0]
+          },
+          {
+            "name": dict_current_target,
+            "value": Results[index][7]
+          },
+          {
+            "name": dict_shift_target,
+            "value": Results[index][6]
+          },
+          ]'>
+          </ngx-charts-bar-horizontal>
+        </td>
       </tr>
-      <ng-container *ngFor="let a of Arr(15).fill(1); let index = index" >
-      <tr >
-        <td style="font-size: 32px;">{{Results[index][1]}}</td>
-        <td rowspan="2" style="font-size: 52px;">{{Results[index][2]}}</td>
-        <td rowspan="2" style="font-size: 52px;">{{Results[index][3]}}</td>
-      </tr>
-        <tr><td>{{Results[index][0]}}</td></tr>
       </ng-container>
     </table>
 </div>

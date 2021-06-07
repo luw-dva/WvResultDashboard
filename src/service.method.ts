@@ -21,6 +21,12 @@ export class ServiceMethod {
     this.serviceService.soapCall(soapOpeartion, soapParameters, i);
   }
 
+  getFactoryResult(entId: number, i?: number): any {
+    const soapOpeartion = `GetFactoryResult`;
+    const soapParameters = `<entId>` + entId + `</entId>`;
+    this.serviceService.soapSrCall(soapOpeartion, soapParameters, i);
+  }
+
   getUserData(entityId:string, userId:string, i?: number): any {
     const soapOpeartion = `GetUserResult`;
     const soapParameters = `<entityId>` + entityId + `</entityId>` +

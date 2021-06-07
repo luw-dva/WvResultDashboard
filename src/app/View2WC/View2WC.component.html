@@ -2,9 +2,9 @@
   <div class="Result1">
     <table style="text-align: center;">
       <tr>
-        <th>Wynik [pt]</th>
-        <th>Bieżacy cel</th>
-        <th>Cel zmianowy</th>
+        <th>{{dict_result}} [pt]</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_shift_target}}</th>
       </tr>
       <tr>
         <td><div class="ResultScore">{{SCORE}}</div></td>
@@ -17,9 +17,9 @@
   <div class="Result2">
     <table style="text-align: center;">
       <tr>
-        <th>Wynik [pt]</th>
-        <th>Bieżacy cel</th>
-        <th>Cel zmianowy</th>
+        <th>{{dict_result}} [pt]</th>
+        <th>{{dict_current_target}}</th>
+        <th>{{dict_shift_target}}</th>
       </tr>
       <tr>
         <td><div class="ResultScore">{{SCORE2}}</div></td>
@@ -34,12 +34,14 @@
 <div style="display:block; clear:both;">
   <div class="Main1_2">
     <div class="center"><div [ngClass]="ScoreCss" >{{SCORE}}</div></div>
-    <div class="center"><p class="WcName">{{ent_Description_pl}}</p></div>
+    <div class="center" *ngIf="lang == 0"><p class="WcName">{{ent_Description_pl}}</p></div>
+    <div class="center" *ngIf="lang == 1"><p class="WcName">{{ent_Description_en}}</p></div>
   </div>
 
   <div class="Main2_2">
     <div class="center"><div [ngClass]="ScoreCss2" >{{SCORE2}}</div></div>
-    <div class="center"><p class="WcName">{{ent_Description_pl2}}</p></div>
+    <div class="center" *ngIf="lang == 0"><p class="WcName">{{ent_Description_pl2}}</p></div>
+    <div class="center" *ngIf="lang == 1"><p class="WcName">{{ent_Description_en2}}</p></div>
   </div>
 </div>
 <div class="center"><p class="clock">{{now}}</p></div>

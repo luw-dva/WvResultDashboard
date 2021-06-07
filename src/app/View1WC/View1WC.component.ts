@@ -1,3 +1,4 @@
+import { dict } from './../../dictionary';
 import { Component, OnInit } from '@angular/core';
 import { ServiceMethod } from './../../service.method';
 import { ServiceService } from './../../service.service';
@@ -18,18 +19,33 @@ export class View1WCComponent implements OnInit {
   interval;
   interval2;
   ent_Description_lt: string;
+  ent_ProcessQtyTarget: string = '0';
   ent_ProcessTimeTarget: string  = '0';
   now: string;
   time = new Date();
   ent_ProcessTimeTargetCurrent: number  = 0;
+  ent_ProcessQtyTargetCurrent: number  = 0;
   wcName: string;
   SCORE: number = 0;
   ScoreCss: string;
   serviceMethod = new ServiceMethod(this.serviceServiceLog);
   public WC_id: string ;
   public WS_id: string ;
+  Langu: string = 'PL';
   mode: string = 'X';
   dataType: string = 'PT'
+  lang = 0;
+  dict_result: string ;
+  dict_current_target: string ;
+  dict_shift_target: string ;
+
+
+  dictionaryChangeLanguage() {
+    this.dict_result = dict.get('Wynik')[this.lang];
+    this.dict_current_target = dict.get('Cel_biezacy')[this.lang];
+    this.dict_shift_target = dict.get('Cel_zmianowy')[this.lang];
+  }
+
 
   constructor(private serviceServiceLog: ServiceService, private activatedRoute: ActivatedRoute) {
     setInterval(() => {
@@ -37,26 +53,32 @@ export class View1WCComponent implements OnInit {
     }, 1);
   }
 
+
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
       this.WC_id = params['Workcenter'];
       this.WS_id = params['Workstation'];
+      this.Langu = params['Language'];
+      if (this.Langu == 'EN') this.lang = 1;
       if ( params['DataType'] == "Qty"){this.dataType = "QTY"}
       if (this.WS_id != undefined){
         this.mode = 'WS'
       }else{
         this.mode = 'WC'
       }
+
+
     });
 
 
     this.interval = setInterval(() => {this.checkUpdate();}, 60000);
-    this.interval2 = setInterval(() => {this.targetCount();}, 5000);
+    this.interval2 = setInterval(() => {this.targetCount();}, 30000);
 
     // setTimeout(() => this.serviceMethod.getUserData(this.WC_id, '0'), 1000);
-    setTimeout(() => this.serviceMethod.getWcResult(this.WC_id), 3000);
+    setTimeout(() =>  this.serviceMethod.getWcResult(this.WC_id), 3000);
 
     setTimeout(() => {
+      this.dictionaryChangeLanguage();
     if(this.mode == 'WC'){
       this.serviceMethod.getEntAttr(parseInt(this.WC_id,));
     }
@@ -103,6 +125,10 @@ export class View1WCComponent implements OnInit {
               this.ent_ProcessTimeTarget = wynikGetEntAttr.getElementsByTagName('ent_attr')[i].getElementsByTagName('attr_value')[0].childNodes[0].nodeValue
               this.targetCount();
             };}catch(err){}
+
+            try { if (wynikGetEntAttr.getElementsByTagName('ent_attr')[i].getElementsByTagName('attr_desc')[0].childNodes[0].nodeValue == 'ent_PiecesTarget'){
+              this.ent_ProcessQtyTarget = wynikGetEntAttr.getElementsByTagName('ent_attr')[i].getElementsByTagName('attr_value')[0].childNodes[0].nodeValue
+            };}catch(err){}
         }
       }
     }
@@ -132,26 +158,52 @@ export class View1WCComponent implements OnInit {
   targetCount(){
     let time = new Date();
     let xhours = time.getHours();
-    if(xhours >= 6 && xhours < 14){
-    this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 360)/480));
+    if (this.dataType == 'PT'){
+      if(xhours >= 6 && xhours < 14){
+      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 360)/480));
+      }
+
+      if(xhours >= 14 && xhours < 22){
+        this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 840)/480));
+        }
+
+      if(xhours >= 22){
+        this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 1320)/480));
+        }
+
+      if(xhours < 6){
+        this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes() + 120) )/480));
+        }
+
+        if(this.SCORE > this.ent_ProcessTimeTargetCurrent){
+          this.ScoreCss = "ScorePTok";
+        }else{
+          this.ScoreCss ="ScorePTnok";
+        }
     }
 
-    if(xhours >= 14 && xhours < 22){
-      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 840)/480));
+    if (this.dataType == 'QTY'){
+      if(xhours >= 6 && xhours < 14){
+      this.ent_ProcessQtyTargetCurrent = Math.floor(parseInt(this.ent_ProcessQtyTarget)*(((xhours*60 + time.getMinutes()) - 360)/480));
       }
 
-    if(xhours >= 22){
-      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) - 1320)/480));
-      }
+      if(xhours >= 14 && xhours < 22){
+        this.ent_ProcessQtyTargetCurrent = Math.floor(parseInt(this.ent_ProcessQtyTarget)*(((xhours*60 + time.getMinutes()) - 840)/480));
+        }
 
-    if(xhours < 6){
-      this.ent_ProcessTimeTargetCurrent = Math.floor(parseInt(this.ent_ProcessTimeTarget)*(((xhours*60 + time.getMinutes()) )/480));
-      }
+      if(xhours >= 22){
+        this.ent_ProcessQtyTargetCurrent = Math.floor(parseInt(this.ent_ProcessQtyTarget)*(((xhours*60 + time.getMinutes()) - 1320)/480));
+        }
 
-    if(this.SCORE > this.ent_ProcessTimeTargetCurrent){
-      this.ScoreCss = "ScorePTok";
-    }else{
-      this.ScoreCss ="ScorePTnok";
+      if(xhours < 6){
+        this.ent_ProcessQtyTargetCurrent = Math.floor(parseInt(this.ent_ProcessQtyTarget)*(((xhours*60 + time.getMinutes() + 120) )/480));
+        }
+
+      if(this.SCORE > this.ent_ProcessQtyTargetCurrent){
+          this.ScoreCss = "ScorePTok";
+        }else{
+          this.ScoreCss ="ScorePTnok";
+        }
     }
   }
 
